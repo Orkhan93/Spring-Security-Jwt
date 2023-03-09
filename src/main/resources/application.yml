@@ -1,0 +1,30 @@
+spring:
+  spring:
+    h2:
+      console:
+        enabled: true
+        path: /h2
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 8090
+security:
+  jwt:
+    secret: "orxanorxanorxanorxanorxanorxanorxanorxanorxanorxanorxanorxanorxa"
+logging:
+  file:
+    name: logs/spring_security_jwt.log
+  level:
+    az.spring.springsecurityjwt: DEBUG
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
