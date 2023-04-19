@@ -16,11 +16,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
-server:
-  port: 8090
 security:
   jwt:
-    secret: "orxanorxanorxanorxanorxanorxanorxanorxanorxanorxanorxanorxanorxa"
+    secret: "burakburakburakburakburakburakburakburakburakburakburakburakbura"
+server:
+  port: 8090
 logging:
   file:
     name: logs/spring_security_jwt.log

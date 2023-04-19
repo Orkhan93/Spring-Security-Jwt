@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -18,21 +19,23 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+
     private final JwtService jwtService;
+
     private final AuthenticationManager authenticationManager;
 
+    private final PasswordEncoder passwordEncoder;
+
     public UserResponse save(UserDto userDto) {
-        log.info("User save Started...");
-        User user = User.builder().username(userDto.getUsername())
-                .password(userDto.getPassword()).nameSurname(userDto.getNameSurname())
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .nameSurname(userDto.getNameSurname())
                 .role(Role.USER).build();
-
         userRepository.save(user);
-
         var token = jwtService.generateToken(user);
-
-        log.info("User Saved");
         return UserResponse.builder().token(token).build();
+
     }
 
     public UserResponse auth(UserRequest userRequest) {

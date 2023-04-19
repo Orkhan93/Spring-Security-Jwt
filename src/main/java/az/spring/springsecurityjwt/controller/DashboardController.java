@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/dashboard")
 public class DashboardController {
-
     @GetMapping
-    public ResponseEntity<String> welcome() {
-        return ResponseEntity.ok("Welcome Dashboard...");
+    public ResponseEntity<String> helloWorld() {
+        return ResponseEntity.ok("Welcome Dashboard");
     }
-
 }

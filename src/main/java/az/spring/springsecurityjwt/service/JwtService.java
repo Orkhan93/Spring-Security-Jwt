@@ -24,10 +24,11 @@ public class JwtService {
         return exportToken(token, Claims::getSubject);
     }
 
-    private <T> T exportToken(String token, Function<Claims, T> claimsTFunction) {
+    private <T> T exportToken(java.lang.String token, Function<Claims, T> claimsTFunction) {
         final Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getKey())
                 .build().parseClaimsJws(token).getBody();
+
         return claimsTFunction.apply(claims);
     }
 
@@ -35,6 +36,7 @@ public class JwtService {
         byte[] key = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(key);
     }
+
 
     public boolean tokenControl(String jwt, UserDetails userDetails) {
         final String username = findUsername(jwt);
@@ -46,9 +48,8 @@ public class JwtService {
                 .setClaims(new HashMap<>())
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-
 }

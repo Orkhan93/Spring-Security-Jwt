@@ -22,7 +22,6 @@ public class AuthenticationController {
 
     @PostMapping("/save")
     public ResponseEntity<UserResponse> save(@RequestBody UserDto userDto) {
-        log.info("User save start : {}", userDto);
         return ResponseEntity.ok(authenticationService.save(userDto));
     }
 
@@ -30,5 +29,4 @@ public class AuthenticationController {
     public ResponseEntity<UserResponse> auth(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authenticationService.auth(userRequest));
     }
-
 }

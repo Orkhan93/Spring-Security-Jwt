@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -26,17 +25,14 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-
+    @Enumerated(EnumType.STRING)
+    Role role;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
-
     private String nameSurname;
     private String username;
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
